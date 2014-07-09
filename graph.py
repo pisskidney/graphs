@@ -18,10 +18,10 @@ class Vertex():
 
 
 class Edge():
-    def __init__(self, source, dest, cost=0):
+    def __init__(self, source, dest, weight=0):
         self.source = source
         self.dest = dest
-        self.cost = cost
+        self.weight = weight
 
 
 class Graph():
