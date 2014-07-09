@@ -7,6 +7,14 @@ class Vertex():
         self.out = list()
         self.inn = list()
 
+    @property
+    def in_deg(self):
+        return len(self.inn)
+
+    @property
+    def out_deg(self):
+        return len(self.out)
+
     def __str__(self):
         return self.identifier
 
@@ -16,12 +24,25 @@ class Vertex():
     def in_as_str(self):
         return ', '.join([str(e.source.identifier) for e in self.inn])
 
+    def __eq__(self, v):
+        return self.identifier == v.identifier
+
+    def __hash__(self):
+        return hash(self.identifier)
+
 
 class Edge():
     def __init__(self, source, dest, weight=0):
         self.source = source
         self.dest = dest
         self.weight = weight
+
+    def __eq__(self, edge):
+        return (
+            self.source == edge.source and
+            self.dest == edge.dest
+            and self.weight == edge.weight
+        )
 
 
 class Graph():
@@ -63,10 +84,19 @@ class Graph():
                 output += 'in: %s\n' % v.in_as_str()
         return output
 
+    def get_edge(self, v1, v2):
+        e = Edge(v1, v2)
+        for edge in self.vertices[v1.identifier].out:
+            if edge == e:
+                return edge
+        return None
+
 
 def main():
     g = Graph.from_file('graph.txt', directed=False)
     print g.as_str()
+    print bool(g.get_edge(Vertex(2), Vertex(1)))
+    print g.vertices[2].in_deg
 
 
 if __name__ == "__main__":
