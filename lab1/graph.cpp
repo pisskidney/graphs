@@ -1,9 +1,12 @@
 #include<stdlib.h>
 #include<string.h>
 #include<vector>
+#include<queue>
+#include<algorithm>
 #include<iostream>
 #include<fstream>
 #include<unordered_map>
+#include<unordered_set>
 
 
 using namespace std;
@@ -22,7 +25,7 @@ class Edge {
 
 
 class DirectedGraph {
-    vector<long int> vertices;
+    unordered_set<long int> vertices;
     vector<Edge> edges;
     unordered_map<int, vector<long int>> in;
     unordered_map<int, vector<long int>> out;
@@ -75,11 +78,11 @@ class DirectedGraph {
             ifs >> nr_vertices;
             ifs >> nr_edges;
 
-            for(int i = 0; i < nr_vertices; ++i) vertices.push_back(i);
-
             for(int i = 0; i < nr_edges; ++i) {
                 Edge e;
                 ifs >> e.from >> e.to >> e.cost;
+                vertices.insert(e.to);
+                vertices.insert(e.from);
                 add_edge(e);
             }
         }
@@ -91,10 +94,48 @@ class DirectedGraph {
         long int outdegree(long int v) {
             return out[v].size();
         }
+
+        void back_bfs(int from, int to) {
+            vector<int> visited;
+            queue<int> to_visit;
+            int path[vertices.size()];
+
+            int current;
+
+            to_visit.push(to);
+
+            while (!to_visit.empty()) {
+                cout << "sup";
+                current = to_visit.front();
+                to_visit.pop();
+                visited.push_back(current);
+                for (auto e_id : in[current]) {
+                    if (find(visited.begin(), visited.end(), edges[e_id].from) == visited.end()) {
+                        to_visit.push(edges[e_id].from);
+                        path[edges[e_id].from] = edges[e_id].to;
+                    }
+
+                    if (edges[e_id].from == from) {
+                        cout << "Found a shortest path: " << endl;
+                        cout << "Path: ";
+                        unsigned int fromm = from;
+                        while (fromm != to) {
+                            cout << fromm << " ";
+                            fromm = path[fromm];
+                        }
+                        cout << to << endl;
+                    }
+                }
+            }
+        }
 };
 
 
 int main() {
+    /* 
+    
+    Lab1 stuff
+
     DirectedGraph dg("graph.txt");
     cout << "vertices: " << dg.nr_vertices() << endl;
     dg.print_edges();
@@ -103,6 +144,10 @@ int main() {
     cout << dg.get_edge(5, 1) << endl;
     cout << "in degree of 2: " << dg.indegree(2) << endl;
     cout << "out degree of 2: " << dg.outdegree(2) << endl;
+    */
+
+    DirectedGraph dg("graph.txt");
+    dg.back_bfs(1, 6);
 
     return 1;
 }
