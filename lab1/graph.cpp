@@ -105,7 +105,6 @@ class DirectedGraph {
             to_visit.push(to);
 
             while (!to_visit.empty()) {
-                cout << "sup";
                 current = to_visit.front();
                 to_visit.pop();
                 visited.push_back(current);
@@ -132,11 +131,11 @@ class DirectedGraph {
 
 
 int main() {
+    DirectedGraph dg("graph.txt");
     /* 
     
     Lab1 stuff
 
-    DirectedGraph dg("graph.txt");
     cout << "vertices: " << dg.nr_vertices() << endl;
     dg.print_edges();
     cout << dg.get_edge(1, 2) << endl;
@@ -146,8 +145,7 @@ int main() {
     cout << "out degree of 2: " << dg.outdegree(2) << endl;
     */
 
-    DirectedGraph dg("graph.txt");
-    dg.back_bfs(1, 6);
+    dg.back_bfs(6, 3);
 
     return 1;
 }
