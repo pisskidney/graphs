@@ -33,6 +33,7 @@ void mult(int** adj, int** d, int n) {
     }
 }
 
+
 int shortest_path(DirectedGraph dg, int v1, int v2) {
     int n = dg.nr_vertices();
 
