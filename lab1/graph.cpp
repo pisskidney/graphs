@@ -50,9 +50,6 @@ class DirectedGraph {
         }
 
         long int get_edge(long int v1, long int v2) {
-            for (auto edge_id : in[v1]) {
-                if (edges[edge_id].from == v2) return edge_id;
-            }
             for (auto edge_id : in[v2]) {
                 if (edges[edge_id].from == v1) return edge_id;
             }
@@ -128,25 +125,3 @@ class DirectedGraph {
             }
         }
 };
-
-
-int main() {
-    DirectedGraph dg("graph.txt");
-    /* 
-    
-    Lab1 stuff
-
-    cout << "vertices: " << dg.nr_vertices() << endl;
-    dg.print_edges();
-    cout << dg.get_edge(1, 2) << endl;
-    cout << dg.get_edge(2, 1) << endl;
-    cout << dg.get_edge(5, 1) << endl;
-    cout << "in degree of 2: " << dg.indegree(2) << endl;
-    cout << "out degree of 2: " << dg.outdegree(2) << endl;
-    */
-
-    dg.back_bfs(6, 3);
-
-    return 1;
-}
-
