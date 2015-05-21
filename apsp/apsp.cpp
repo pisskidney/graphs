@@ -1,5 +1,5 @@
 #include <climits>
-#include "graph.cpp"
+#include "../graph.cpp"
 
 #define MAX 9;
 
