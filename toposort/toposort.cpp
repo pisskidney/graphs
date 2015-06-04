@@ -127,7 +127,6 @@ class ActivityManager {
                 }
             }
 
-            cout << endl;
             cout << "Shortest starting times: ";
             for (int i = 0; i < dist.size(); ++i){
                 cout << i << ":"<< dist[i] << ", ";
