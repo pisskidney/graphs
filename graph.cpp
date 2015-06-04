@@ -25,12 +25,16 @@ class Edge {
 
 
 class DirectedGraph {
-    unordered_set<long int> vertices;
-    vector<Edge> edges;
-    unordered_map<int, vector<long int>> in;
-    unordered_map<int, vector<long int>> out;
-    
     public:
+        unordered_set<long int> vertices;
+        vector<Edge> edges;
+        unordered_map<int, vector<long int>> in;
+        unordered_map<int, vector<long int>> out;
+
+        void add_vertex(long int v) {
+            vertices.insert(v);
+        }
+        
         long int nr_vertices() {
             return vertices.size();
         }
@@ -67,6 +71,8 @@ class DirectedGraph {
             in[e.to].push_back(e.id);
             out[e.from].push_back(e.id);
         }
+
+        DirectedGraph() {}
 
         DirectedGraph(string file) {
             long int nr_vertices, nr_edges;
